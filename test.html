@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+      img {
+        width: 150px;
+        height: 150px;
+        margin-top: 500px;
+        margin-bottom: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <img class="img" src="./images/blend-image-1.jpg" alt="" />
+    <div class="value">requesetAnimationFrame</div>
+
+    <script>
+      const img = document.querySelector(".img");
+      const value = document.querySelector(".value");
+
+      requestAnimationFrame(() => {
+        console.log(0);
+      }); // 지연효과 있음
+      console.log(1);
+
+      let yPos = 0;
+      let rafId;
+      function render() {
+        value.innerHTML = yPos;
+        img.style.transform = `translateY(${-yPos}px)`;
+        yPos++;
+
+        rafId = requestAnimationFrame(render);
+        if (yPos > 500) {
+          cancelAnimationFrame(rafId);
+        }
+      }
+
+      render();
+
+      window.addEventListener("click", () => {
+        cancelAnimationFrame(rafId); //animation 정지
+      });
+    </script>
+  </body>
+</html>
